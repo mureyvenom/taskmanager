@@ -2,25 +2,56 @@
   "name": "electronreact",
   "version": "0.1.0",
   "private": true,
+  "author": "Oluwamurewa",
+  "description": "A React typescript electron app",
+  "main": "build/electron/main.js",
+  "homepage": ".",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
+    "@types/electron-devtools-installer": "^2.2.2",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "autoprefixer": "^10.4.13",
+    "electron-devtools-installer": "^3.2.0",
+    "electron-is-dev": "^2.0.0",
+    "electron-reload": "^2.0.0-alpha.1",
+    "postcss": "^8.4.18",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
+    "redux-persist": "^6.0.0",
+    "tailwindcss": "^3.2.2",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
   },
+  "build": {
+    "extends": null,
+    "files": [
+      "build/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  },
   "scripts": {
+    "postinstall": "electron-builder install-app-deps",
+    "electron:dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://127.0.0.1:3000 && tsc -p electron -w\" \"wait-on http://127.0.0.1:3000 && tsc -p electron && electron .\"",
+    "electron:build": "yarn build && tsc -p electron && electron-builder",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepare": "husky install",
+    "commit": "commit",
+    "format": "prettier --write --ignore-unknown .",
+    "lint": "eslint --cache ./src"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +70,25 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.2.0",
+    "@commitlint/config-conventional": "^17.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
+    "concurrently": "^7.5.0",
+    "cross-env": "^7.0.3",
+    "electron": "^21.2.2",
+    "electron-builder": "^23.6.0",
+    "eslint": "^8.27.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jest": "^27.1.4",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-react": "^7.31.10",
+    "eslint-plugin-testing-library": "^5.9.1",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "wait-on": "^6.0.1"
   }
 }
